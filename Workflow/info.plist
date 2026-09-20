@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.alfredapp.vitor.mobilewebtester</string>
+	<key>connections</key>
+	<dict>
+		<key>01100594-295B-47F3-B704-2EB5F30A8B33</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>740EDC02-0AAE-4113-A55E-0C0C8DAFC7C5</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>891267D4-04CB-423D-8164-160DAB36DC3D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>01100594-295B-47F3-B704-2EB5F30A8B33</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
+		</array>
+		<key>D2563A26-3DB8-483B-8C12-DEAE94399384</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>01100594-295B-47F3-B704-2EB5F30A8B33</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Vítor Galvão</string>
+	<key>description</key>
+	<string>View websites on a variety of device sizes</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Mobile Web Tester</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>launchmode</key>
+				<integer>0</integer>
+				<key>path</key>
+				<string>tester.alfredui</string>
+				<key>stackview</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.alfredui</string>
+			<key>uid</key>
+			<string>740EDC02-0AAE-4113-A55E-0C0C8DAFC7C5</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>{var:test_keyword}</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Parsing argument…</string>
+				<key>script</key>
+				<string>./tester.alfredui/parse-url scriptfilter "${1}"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string>Input a URL to test</string>
+				<key>title</key>
+				<string>{const:alfred_workflow_name}</string>
+				<key>type</key>
+				<integer>11</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D2563A26-3DB8-483B-8C12-DEAE94399384</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>json</key>
+				<string>{
+  "alfredworkflow" : {
+    "arg": "{query}",
+    "config" : {
+      "launchmode" : "{var:launch_external}"
+    }
+  }
+}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.json</string>
+			<key>uid</key>
+			<string>01100594-295B-47F3-B704-2EB5F30A8B33</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>acceptsfiles</key>
+				<false/>
+				<key>acceptsmulti</key>
+				<integer>0</integer>
+				<key>acceptstext</key>
+				<false/>
+				<key>acceptsurls</key>
+				<true/>
+				<key>name</key>
+				<string>{const:alfred_workflow_name}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.universalaction</string>
+			<key>uid</key>
+			<string>891267D4-04CB-423D-8164-160DAB36DC3D</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>## Usage
+
+Test a website on multiple mobile device sizes via the `mobile` keyword.
+
+![Keyword to launch a UI](images/about/keyword.png)
+
+![UI showing a mobile website](images/about/ui.png)
+
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;P&lt;/kbd&gt; Focus device picker.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↑&lt;/kbd&gt; Select previous device.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↓&lt;/kbd&gt; Select next device.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;L&lt;/kbd&gt; Focus URL field.
+* &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;↩&lt;/kbd&gt; Reload URL in field.
+
+Alternatively, open a URL to test via the [Universal Action](https://www.alfredapp.com/help/features/universal-actions/).
+
+![Universal Action to launch a test](images/about/ua.png)
+
+Edit the list of devices or configure the window to open separately in the [Workflow’s Configuration](https://www.alfredapp.com/help/workflows/user-configuration/).</string>
+	<key>uidata</key>
+	<dict>
+		<key>01100594-295B-47F3-B704-2EB5F30A8B33</key>
+		<dict>
+			<key>xpos</key>
+			<real>275</real>
+			<key>ypos</key>
+			<real>95</real>
+		</dict>
+		<key>740EDC02-0AAE-4113-A55E-0C0C8DAFC7C5</key>
+		<dict>
+			<key>xpos</key>
+			<real>365</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+		<key>891267D4-04CB-423D-8164-160DAB36DC3D</key>
+		<dict>
+			<key>xpos</key>
+			<real>75</real>
+			<key>ypos</key>
+			<real>205</real>
+		</dict>
+		<key>D2563A26-3DB8-483B-8C12-DEAE94399384</key>
+		<dict>
+			<key>xpos</key>
+			<real>75</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>mobile</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Test Keyword</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>test_keyword</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<false/>
+				<key>required</key>
+				<false/>
+				<key>text</key>
+				<string>Open in a separate window</string>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>External</string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>launch_external</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>iPhone 18 Pro,402,874,1206,2622,3
+iPhone 18 Pro Max,440,956,1320,2868,3
+iPhone Duo (closed),466,678,1398,2034,3
+iPhone Duo (opened),669,951,2007,2853,3
+iPhone 17 Pro,402,874,1206,2622,3
+iPhone 17 Pro Max,440,956,1320,2868,3
+iPhone 17e,390,844,1170,2532,3
+iPhone Air,420,912,1260,2736,3
+iPhone 17,402,874,1206,2622,3
+iPhone 16 Pro,402,874,1206,2622,3
+iPhone 16 Pro Max,440,956,1320,2868,3
+iPhone 16e,390,844,1170,2532,3
+iPhone 16,393,852,1179,2556,3
+iPhone 16 Plus,430,932,1290,2796,3
+iPhone 15 Pro,393,852,1179,2556,3
+iPhone 15 Pro Max,430,932,1290,2796,3
+iPhone 15,393,852,1179,2556,3
+iPhone 15 Plus,430,932,1290,2796,3
+iPhone 14 Pro,393,852,1179,2556,3
+iPhone 14 Pro Max,430,932,1290,2796,3
+iPhone 14,390,844,1170,2532,3
+iPhone 14 Plus,428,926,1284,2778,3
+iPhone SE (3rd generation),375,667,750,1334,2
+iPhone 13 Pro,390,844,1170,2532,3
+iPhone 13 Pro Max,428,926,1284,2778,3
+iPhone 13,390,844,1170,2532,3
+iPhone 13 mini,360,780,1080,2340,3
+iPhone 12 Pro,390,844,1170,2532,3
+iPhone 12 Pro Max,428,926,1284,2778,3
+iPhone 12,390,844,1170,2532,3
+iPhone 12 mini,360,780,1080,2340,3
+iPhone SE (2nd generation),375,667,750,1334,2
+iPhone 11 Pro,375,812,1125,2436,3
+iPhone 11 Pro Max,414,896,1242,2688,3
+iPhone 11,414,896,828,1792,2
+iPhone Xʀ,414,896,828,1792,2
+iPhone Xs,375,812,1125,2436,3
+iPhone Xs Max,414,896,1242,2688,3
+iPhone X,375,812,1125,2436,3
+iPhone 8,375,667,750,1334,2
+iPhone 8 Plus,414,736,1242,2208,3
+iPhone 7,375,667,750,1334,2
+iPhone 7 Plus,414,736,1242,2208,3
+iPhone SE (1st generation),320,568,640,1136,2
+iPhone 6s,375,667,750,1334,2
+iPhone 6s Plus,414,736,1242,2208,3</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+				<key>verticalsize</key>
+				<integer>9</integer>
+			</dict>
+			<key>description</key>
+			<string>Comma-separated list of devices. Order is: Device Name, Logical Width, Logical Height, Physical Width, Physical Height, Scale Factor</string>
+			<key>label</key>
+			<string>Devices</string>
+			<key>type</key>
+			<string>textarea</string>
+			<key>variable</key>
+			<string>device_list</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string>26.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/alfredapp/mobile-web-tester-workflow/</string>
+</dict>
+</plist>

@@ -1,0 +1,25 @@
+#!/usr/bin/osascript -l JavaScript
+
+function loadURL(url, target) {
+  if (target === "scriptfilter") return JSON.stringify({ items: [{
+    title: $.NSProcessInfo.processInfo.environment.objectForKey("alfred_workflow_name").js,
+    subtitle: url,
+    arg: url
+  }]})
+
+  if (target === "alfredui") return JSON.stringify({ update: { ids: {
+    urlField: { text: url },
+    webview: { src: url }
+  }}})
+
+  throw new Error(`Unrecognised target: ${target}`)
+}
+
+function run(argv) {
+  const target = argv[0] // "scriptfilter" or "alfredui"
+  const rawURL = argv[1]
+
+  if (new RegExp("^https?://").test(rawURL)) return loadURL(rawURL, target)
+  if (new RegExp("^localhost[:/]").test(rawURL)) return loadURL(`http://${rawURL}`, target)
+  return loadURL(`https://${rawURL}`, target)
+}

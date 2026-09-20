@@ -1,0 +1,152 @@
+{
+  "bundleid": "com.alfredapp.vitor.mobilewebtester",
+  "log": { "level": "all", "internal": true },
+  "variablesconfig": {
+    "url": { "src": "args[0]" },
+    "device_list": { "src": "variable", "scriptenv": true },
+    "selected_device": { "persist": true, "scriptenv": true }
+  },
+  "window": {
+    "root": {
+      "events": [
+        {
+          "triggers": "preload",
+          "action": {
+            "type": "script",
+            "src": "init-load"
+          }
+        }
+      ],
+      "shortcuts": [
+        { "shortcut": "⌘L", "action": { "type": "json", "src": { "update": { "ids": { "urlField": { "focus": true } } } } } },
+        { "shortcut": "⌘P", "action": { "type": "json", "src": { "update": { "ids": { "devicePicker": { "focus": true } } } } } }
+      ],
+      "type": "view",
+      "layout": "flex",
+      "padding": 16,
+      "spacing": 8,
+      "cols": 3,
+      "rows": 4,
+      "components": [
+        {
+          "constraints": { "grid": { "row": 0, "col": 0, "colweight": 1 } },
+          "id": "devicePicker",
+          "type": "picker",
+          "tooltip": "Pick device ⌘P",
+          "font": { "monospaced": "digits" },
+          "events": [{
+            "triggers": [ "preload", "changed" ],
+            "action": {
+              "type": "script",
+              "src": "load-device",
+              "args": "{value:self.selected.value}"
+            }
+          }]
+        },
+        {
+          "constraints": { "grid": { "row": 0, "col": 1 }},
+          "type": "button",
+          "image": { "type": "symbol", "src": "arrow.up" },
+          "shortcut": "⌘↑",
+          "tooltip": "Previous device ⌘↑",
+          "events": [{
+            "triggers": "actioned",
+            "action": {
+              "type": "function",
+              "src": "devicePicker",
+              "args": "selectprevious"
+            }
+          }]
+        },
+        {
+          "constraints": { "grid": { "row": 0, "col": 2 }},
+          "type": "button",
+          "image": { "type": "symbol", "src": "arrow.down" },
+          "shortcut": "⌘↓",
+          "tooltip": "Next device ⌘↓",
+          "events": [{
+            "triggers": "actioned",
+            "action": {
+              "type": "function",
+              "src": "devicePicker",
+              "args": "selectnext"
+            }
+          }]
+        },
+        {
+          "constraints": { "grid": { "row": 1, "col": 0, "colspan": 2 } },
+          "id": "urlField",
+          "type": "textfield",
+          "text": "{var:url}",
+          "bordered": false,
+          "focusring": false,
+          "background": "#00000033",
+          "textinsets": { "horizontal": 4, "vertical": 4 },
+          "tooltip": "Website address ⌘L",
+          "events": [{
+            "triggers": "actioned",
+            "action": {
+              "type": "script",
+              "src": "parse-url",
+              "args": [ "alfredui", "{value:urlField.text}" ]
+            }
+          }]
+        },
+        {
+          "constraints": { "grid": { "row": 1, "col": 2 } },
+          "type": "button",
+          "image": { "type": "symbol", "src": "arrow.right" },
+          "shortcut": "⌘↩",
+          "tooltip": "Load page ⌘↩",
+          "events": [{
+            "triggers": "actioned",
+            "action": {
+              "type": "script",
+              "src": "parse-url",
+              "args": [ "alfredui", "{value:urlField.text}" ]
+            }
+          }]
+        },
+        {
+          "constraints": { "grid": { "row": 2, "rowweight": 1, "colspan": 3 } },
+          "type": "view",
+          "layout": "stack",
+          "padding": 16,
+          "components": [
+            {
+              "constraints": { "position": "top" },
+              "type": "view",
+              "layout": "stack",
+              "padding": 16,
+              "cornerradius": 32,
+              "border": { "width": 16, "colour": "#111111" },
+              "components": [
+                {
+                  "id": "webview",
+                  "type": "webkitview",
+                  "src": "{var:url}",
+                  "focus": true,
+                  "events": [{
+                    "triggers": "changed",
+                    "action": {
+                      "type": "json",
+                      "variables": { "url": "{value:self.src}" },
+                      "src": { "update": { "ids": { "urlField": { "text": "{var:url}" } } } }
+                    }
+                  }]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "constraints": { "grid": { "row": 3, "colspan": 3 } },
+          "id": "infoLabel",
+          "type": "label",
+          "textalign": "centre",
+          "colour": "secondaryLabelColor"
+        }
+      ]
+    }
+  }
+}

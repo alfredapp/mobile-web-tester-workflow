@@ -1,0 +1,29 @@
+#!/usr/bin/osascript -l JavaScript
+
+function envVar(varName) {
+  return $.NSProcessInfo
+    .processInfo
+    .environment
+    .objectForKey(varName).js
+}
+
+const allDevices = envVar("device_list").split("\n").map(device => device.split(",").map(info => info.trim()))
+const widestSize = Math.max(...allDevices.map(device => parseInt(device[1])))
+const summedPadding = 96 // Three views with 16 padding, times two for both sides
+
+JSON.stringify({
+  window: { resize: { width: widestSize + summedPadding } },
+  update: { ids: { devicePicker: {
+    selected: envVar("selected_device"),
+    items: allDevices.map(device => {
+      const model = device[0]
+      const logicalWidth = device[1]
+      const logicalHeight = device[2]
+
+      return {
+        text: `${logicalWidth} × ${logicalHeight}  -  ${model}`,
+        value: model
+      }
+    })
+  }}}
+})

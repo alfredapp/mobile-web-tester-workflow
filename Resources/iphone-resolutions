@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+echo "Device Model,Logical Width,Logical Height,Physical Width,Physical Height,Scale Factor" >&2
+
+for bundle in "${(@f)$(/usr/bin/xcrun simctl list devicetypes --json | jq --raw-output '.devicetypes[] | select(.name|test("^iPhone")) | .bundlePath')}"
+do
+  /usr/bin/plutil -convert json -o - "${bundle}/Contents/Resources/capabilities.plist" |
+    jq --raw-output --arg name "$(/usr/bin/basename "${bundle}" .simdevicetype)" '.capabilities.displays[] | select(.displayType == "integrated") as {width: $w, height: $h, scale: $s} | [$name, $w/$s, $h/$s, $w, $h, $s] | join(",")'
+done

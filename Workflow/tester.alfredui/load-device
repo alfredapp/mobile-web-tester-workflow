@@ -1,0 +1,27 @@
+#!/usr/bin/osascript -l JavaScript
+
+function envVar(varName) {
+  return $.NSProcessInfo
+    .processInfo
+    .environment
+    .objectForKey(varName).js
+}
+
+function run(argv) {
+  const name = argv[0]
+  const device = envVar("device_list")
+    .split("\n")
+    .find(device => device.split(",")[0].trim() === name)
+    .split(",")
+    .map(details => details.trim())
+
+  return JSON.stringify({
+    window: { resize: { height: "auto" } },
+    variables: { selected_device: device[0] },
+    update: { ids: {
+      infoLabel: { text: `Physical Size: ${device[3]} × ${device[4]} · Scale Factor: ${device[5]}` },
+      webview: { constraints: { size: { width: parseInt(device[1]), height: parseInt(device[2]) } } }
+    }}
+  })
+}
+
